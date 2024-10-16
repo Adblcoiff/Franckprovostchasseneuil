@@ -23,6 +23,7 @@
             border-radius: 10px;
             text-align: center;
             opacity: 0; /* Départ invisible */
+            transition: opacity 0.5s ease-in-out; /* Transition d'opacité */
         }
 
         .gagne {
@@ -38,11 +39,6 @@
             height: auto; /* Hauteur automatique */
             margin-top: 20px;
             display: none; /* Masquer la vidéo au départ */
-        }
-
-        .animate img, .animate video {
-            opacity: 1;
-            transition: all 0.5s ease-in-out;
         }
     </style>
 </head>
@@ -70,6 +66,9 @@
 
         resultText.innerText = result;
 
+        // Affiche la div avec une animation
+        resultDiv.style.opacity = 1;
+
         if (result === "Gagné") {
             resultDiv.classList.remove('perdu');
             resultDiv.classList.add('gagne');
@@ -84,9 +83,6 @@
             gagneVideo.pause(); // Arrêter la vidéo
             gagneVideo.currentTime = 0; // Remettre la vidéo à 0
         }
-
-        // Appliquer l'animation pour les éléments
-        resultDiv.classList.add('animate');
     }
 
     // Appeler la fonction quand la page charge
@@ -95,4 +91,3 @@
 
 </body>
 </html>
-
