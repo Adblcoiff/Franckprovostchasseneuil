@@ -28,7 +28,7 @@
         }
 
         .gagne {
-            ;
+            background-color: #4caf50;
         }
 
         .perdu {
@@ -72,9 +72,9 @@
 </head>
 <body>
 
+<!-- Résultat du tirage -->
 <div id="result" class="result">
     <span id="resultText">Résultat</span>
-    <img id="resultImage" src="" alt="Résultat visuel"> <!-- Image pour le résultat -->
 </div>
 
 <!-- Conteneur pour la vidéo de victoire -->
@@ -92,7 +92,6 @@
     function lancerAnimation() {
         var resultDiv = document.getElementById('result');
         var resultText = document.getElementById('resultText');
-        var resultImage = document.getElementById('resultImage');
         var gagneVideo = document.getElementById('gagneVideo');
         var retryButton = document.getElementById('retryButton');
         var videoContainer = document.getElementById('videoContainer');
@@ -114,7 +113,6 @@
             resultDiv.classList.remove('gagne');
             resultDiv.classList.add('perdu');
             videoContainer.style.display = "none"; // Cacher le conteneur de la vidéo si "Perdu"
-            // Ne pas mettre la vidéo en pause
 
             // Afficher le bouton de retry uniquement jusqu'au 25/12/2024
             var today = new Date();
@@ -133,7 +131,6 @@
         var resultDiv = document.getElementById('result');
         resultDiv.style.opacity = 0; // Cacher le résultat
         document.getElementById('resultText').innerText = "Résultat"; // Réinitialiser le texte
-        document.getElementById('resultImage').src = ""; // Réinitialiser l'image
         document.getElementById('videoContainer').style.display = "none"; // Cacher le conteneur de la vidéo
         // La vidéo ne sera pas mise en pause, donc elle continuera à jouer en arrière-plan.
         lancerAnimation(); // Relancer l'animation
