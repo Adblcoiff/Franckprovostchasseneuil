@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tirage au sort avec vidéo</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+            font-family: Arial, sans-serif;
+        }
+
+        .result {
+            font-size: 48px;
+            font-weight: bold;
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            opacity: 0; /* Départ invisible */
+        }
+
+        .gagne {
+            background-color: #4caf50;
+        }
+
+        .perdu {
+            background-color: #f44336;
+        }
+
+        #gagneVideo {
+            width: 500px; /* Largeur de la vidéo */
+            height: auto; /* Hauteur automatique */
+            margin-top: 20px;
+            display: none; /* Masquer la vidéo au départ */
+        }
+
+        .animate img, .animate video {
+            opacity: 1;
+            transition: all 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+<div id="result" class="result">
+    <span id="resultText">Résultat</span>
+    <img id="resultImage" src="" alt="Résultat visuel"> <!-- Image pour le résultat -->
+</div>
+
+<!-- Vidéo de victoire -->
+<video id="gagneVideo" controls>
+    <source src="gagner.mp4" type="video/mp4"> <!-- Chemin vers ta vidéo -->
+    Votre navigateur ne supporte pas la lecture de vidéos.
+</video>
+
+<script>
+    function lancerAnimation() {
+        var resultDiv = document.getElementById('result');
+        var resultText = document.getElementById('resultText');
+        var resultImage = document.getElementById('resultImage');
+        var gagneVideo = document.getElementById('gagneVideo');
+
+        var result = Math.random() < 0.5 ? "Gagné" : "Perdu"; // 50% de chances
+
+        resultText.innerText = result;
+
+        if (result === "Gagné") {
+            resultDiv.classList.remove('perdu');
+            resultDiv.classList.add('gagne');
+            resultImage.src = 'trophee.png'; // Image de trophée pour "Gagné"
+            gagneVideo.style.display = "block"; // Afficher la vidéo
+            gagneVideo.play(); // Lire la vidéo automatiquement
+        } else {
+            resultDiv.classList.remove('gagne');
+            resultDiv.classList.add('perdu');
+            resultImage.src = 'triste.png'; // Image triste pour "Perdu"
+            gagneVideo.style.display = "none"; // Cacher la vidéo si "Perdu"
+            gagneVideo.pause(); // Arrêter la vidéo
+            gagneVideo.currentTime = 0; // Remettre la vidéo à 0
+        }
+
+        // Appliquer l'animation pour les éléments
+        resultDiv.classList.add('animate');
+    }
+
+    // Appeler la fonction quand la page charge
+    window.onload = lancerAnimation;
+</script>
+
+</body>
+</html>
+
