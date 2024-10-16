@@ -35,12 +35,22 @@
             background-color: #f44336;
         }
 
-        #gagneVideo {
-            width: 100%; /* Adapter la largeur de la vidéo à l'écran */
+        .video-container {
+            width: 100%; /* Adapter la largeur du conteneur à l'écran */
             max-width: 500px; /* Largeur maximum de la vidéo */
-            height: auto; /* Hauteur automatique */
             margin-top: 20px;
-            display: none; /* Masquer la vidéo au départ */
+            display: none; /* Masquer le conteneur au départ */
+            position: relative;
+            overflow: hidden; /* Assurer que la vidéo ne dépasse pas le conteneur */
+            padding-top: 56.25%; /* Ratio d'aspect 16:9 */
+        }
+
+        #gagneVideo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
 
         #retryButton {
@@ -67,11 +77,13 @@
     <img id="resultImage" src="" alt="Résultat visuel"> <!-- Image pour le résultat -->
 </div>
 
-<!-- Vidéo de victoire -->
-<video id="gagneVideo" controls autoplay muted>
-    <source src="gagner.mp4" type="video/mp4"> <!-- Chemin vers ta vidéo -->
-    Votre navigateur ne supporte pas la lecture de vidéos.
-</video>
+<!-- Conteneur pour la vidéo de victoire -->
+<div class="video-container" id="videoContainer">
+    <video id="gagneVideo" controls autoplay muted>
+        <source src="gagner.mp4" type="video/mp4"> <!-- Chemin vers ta vidéo -->
+        Votre navigateur ne supporte pas la lecture de vidéos.
+    </video>
+</div>
 
 <!-- Bouton pour retenter sa chance -->
 <button id="retryButton" onclick="retenterChance()">Retentez votre chance</button>
@@ -83,6 +95,7 @@
         var resultImage = document.getElementById('resultImage');
         var gagneVideo = document.getElementById('gagneVideo');
         var retryButton = document.getElementById('retryButton');
+        var videoContainer = document.getElementById('videoContainer');
 
         var result = Math.random() < 0.5 ? "Gagné" : "Perdu"; // 50% de chances
 
@@ -95,14 +108,14 @@
             resultDiv.classList.remove('perdu');
             resultDiv.classList.add('gagne');
             resultImage.src = 'trophee.png'; // Image de trophée pour "Gagné"
-            gagneVideo.style.display = "block"; // Afficher la vidéo
+            videoContainer.style.display = "block"; // Afficher le conteneur de la vidéo
             gagneVideo.play(); // Lire la vidéo automatiquement
             retryButton.style.display = "none"; // Masquer le bouton si "Gagné"
         } else {
             resultDiv.classList.remove('gagne');
             resultDiv.classList.add('perdu');
             resultImage.src = 'triste.png'; // Image triste pour "Perdu"
-            gagneVideo.style.display = "none"; // Cacher la vidéo si "Perdu"
+            videoContainer.style.display = "none"; // Cacher le conteneur de la vidéo si "Perdu"
             // Ne pas mettre la vidéo en pause
 
             // Afficher le bouton de retry uniquement jusqu'au 25/12/2024
@@ -123,7 +136,7 @@
         resultDiv.style.opacity = 0; // Cacher le résultat
         document.getElementById('resultText').innerText = "Résultat"; // Réinitialiser le texte
         document.getElementById('resultImage').src = ""; // Réinitialiser l'image
-        document.getElementById('gagneVideo').style.display = "none"; // Cacher la vidéo
+        document.getElementById('videoContainer').style.display = "none"; // Cacher le conteneur de la vidéo
         // La vidéo ne sera pas mise en pause, donc elle continuera à jouer en arrière-plan.
         lancerAnimation(); // Relancer l'animation
     }
