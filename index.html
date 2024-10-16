@@ -101,8 +101,8 @@
             resultDiv.classList.add('perdu');
             resultImage.src = 'triste.png'; // Image triste pour "Perdu"
             gagneVideo.style.display = "none"; // Cacher la vidéo si "Perdu"
-            gagneVideo.pause(); // Arrêter la vidéo
-            gagneVideo.currentTime = 0; // Remettre la vidéo à 0
+            // Ne pas mettre la vidéo en pause
+            // Pas de pause, donc elle continuera à jouer si elle est déjà lancée.
 
             // Afficher le bouton de retry uniquement jusqu'au 25/12/2024
             var today = new Date();
@@ -123,8 +123,7 @@
         document.getElementById('resultText').innerText = "Résultat"; // Réinitialiser le texte
         document.getElementById('resultImage').src = ""; // Réinitialiser l'image
         document.getElementById('gagneVideo').style.display = "none"; // Cacher la vidéo
-        document.getElementById('gagneVideo').pause(); // Arrêter la vidéo
-        document.getElementById('gagneVideo').currentTime = 0; // Remettre la vidéo à 0
+        // La vidéo ne sera pas mise en pause, donc elle continuera à jouer en arrière-plan.
         lancerAnimation(); // Relancer l'animation
     }
 
