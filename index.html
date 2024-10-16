@@ -28,7 +28,7 @@
         }
 
         .gagne {
-            background-color: #4caf50;
+            ;
         }
 
         .perdu {
@@ -107,14 +107,12 @@
         if (result === "Gagné") {
             resultDiv.classList.remove('perdu');
             resultDiv.classList.add('gagne');
-            resultImage.src = 'trophee.png'; // Image de trophée pour "Gagné"
             videoContainer.style.display = "block"; // Afficher le conteneur de la vidéo
             gagneVideo.play(); // Lire la vidéo automatiquement
             retryButton.style.display = "none"; // Masquer le bouton si "Gagné"
         } else {
             resultDiv.classList.remove('gagne');
             resultDiv.classList.add('perdu');
-            resultImage.src = 'triste.png'; // Image triste pour "Perdu"
             videoContainer.style.display = "none"; // Cacher le conteneur de la vidéo si "Perdu"
             // Ne pas mettre la vidéo en pause
 
