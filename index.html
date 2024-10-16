@@ -13,6 +13,7 @@
             height: 100vh;
             background-color: #f4f4f9;
             font-family: Arial, sans-serif;
+            margin: 0; /* Enlever les marges par défaut */
         }
 
         .result {
@@ -35,7 +36,8 @@
         }
 
         #gagneVideo {
-            width: 500px; /* Largeur de la vidéo */
+            width: 100%; /* Adapter la largeur de la vidéo à l'écran */
+            max-width: 500px; /* Largeur maximum de la vidéo */
             height: auto; /* Hauteur automatique */
             margin-top: 20px;
             display: none; /* Masquer la vidéo au départ */
@@ -46,7 +48,7 @@
             margin-top: 20px;
             padding: 10px 20px;
             font-size: 20px;
-            background-color: #011f45;
+            background-color: #007BFF;
             color: white;
             border: none;
             border-radius: 5px;
@@ -54,7 +56,7 @@
         }
 
         #retryButton:hover {
-            background-color: #002145; /* Couleur au survol */
+            background-color: #0056b3; /* Couleur au survol */
         }
     </style>
 </head>
@@ -66,7 +68,7 @@
 </div>
 
 <!-- Vidéo de victoire -->
-<video id="gagneVideo" autoplay muted>
+<video id="gagneVideo" controls autoplay muted>
     <source src="gagner.mp4" type="video/mp4"> <!-- Chemin vers ta vidéo -->
     Votre navigateur ne supporte pas la lecture de vidéos.
 </video>
@@ -102,7 +104,6 @@
             resultImage.src = 'triste.png'; // Image triste pour "Perdu"
             gagneVideo.style.display = "none"; // Cacher la vidéo si "Perdu"
             // Ne pas mettre la vidéo en pause
-            // Pas de pause, donc elle continuera à jouer si elle est déjà lancée.
 
             // Afficher le bouton de retry uniquement jusqu'au 25/12/2024
             var today = new Date();
