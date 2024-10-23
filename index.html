@@ -7,31 +7,33 @@
     <style>
         body {
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             background-color: #f4f4f9;
             font-family: Arial, sans-serif;
-            margin: 0; /* Enlever les marges par défaut */
+            margin: 0;
         }
 
         .video-container {
-            width: 100%; /* Adapter la largeur du conteneur à l'écran */
-            max-width: 500px; /* Largeur maximum de la vidéo */
-            margin-top: 20px;
+            width: 100vw; /* Prend 100% de la largeur de la fenêtre */
+            height: 100vh; /* Prend 100% de la hauteur de la fenêtre */
             display: none; /* Masquer le conteneur au départ */
             position: relative;
-            overflow: hidden; /* Assurer que la vidéo ne dépasse pas le conteneur */
-            padding-top: 56.25%; /* Ratio d'aspect 16:9 */
         }
 
         #gagneVideo, #perduVideo {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100%; /* Assurer que la vidéo s'ajuste à 100% de la largeur */
+            height: 100%; /* Assurer que la vidéo s'ajuste à 100% de la hauteur */
+            object-fit: cover; /* Recouvrir l'écran tout en conservant le ratio d'aspect */
+        }
+
+        /* Styles supplémentaires pour petits écrans */
+        @media (max-width: 768px) {
+            .video-container {
+                width: 100vw; /* Toujours 100% de la largeur de l'écran */
+                height: 100vh; /* Toujours 100% de la hauteur de l'écran */
+            }
         }
     </style>
 </head>
@@ -40,7 +42,7 @@
 <!-- Conteneur pour la vidéo de victoire -->
 <div class="video-container" id="videoGagneContainer">
     <video id="gagneVideo" autoplay muted playsinline>
-        <source src="gagner.mp4" type="video/mp4"> <!-- Chemin vers la vidéo de victoire -->
+        <source src="gagner.mp4" type="video/mp4">
         Votre navigateur ne supporte pas la lecture de vidéos.
     </video>
 </div>
@@ -48,7 +50,7 @@
 <!-- Conteneur pour la vidéo d'échec -->
 <div class="video-container" id="videoPerduContainer">
     <video id="perduVideo" autoplay muted playsinline>
-        <source src="perdu.mp4" type="video/mp4"> <!-- Chemin vers la vidéo de défaite -->
+        <source src="perdu.mp4" type="video/mp4">
         Votre navigateur ne supporte pas la lecture de vidéos.
     </video>
 </div>
