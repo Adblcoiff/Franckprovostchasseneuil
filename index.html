@@ -16,25 +16,6 @@
             margin: 0; /* Enlever les marges par défaut */
         }
 
-        .result {
-            font-size: 48px;
-            font-weight: bold;
-            color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            opacity: 0; /* Départ invisible */
-            transition: opacity 0.5s ease-in-out; /* Transition d'opacité */
-        }
-
-        .gagne {
-            background-color: #4caf50;
-        }
-
-        .perdu {
-            background-color: #f44336;
-        }
-
         .video-container {
             width: 100%; /* Adapter la largeur du conteneur à l'écran */
             max-width: 500px; /* Largeur maximum de la vidéo */
@@ -56,11 +37,6 @@
 </head>
 <body>
 
-<!-- Résultat du tirage -->
-<div id="result" class="result">
-    <span id="resultText">Résultat</span>
-</div>
-
 <!-- Conteneur pour la vidéo de victoire -->
 <div class="video-container" id="videoGagneContainer">
     <video id="gagneVideo" controls autoplay muted>
@@ -79,8 +55,6 @@
 
 <script>
     function lancerAnimation() {
-        var resultDiv = document.getElementById('result');
-        var resultText = document.getElementById('resultText');
         var gagneVideo = document.getElementById('gagneVideo');
         var perduVideo = document.getElementById('perduVideo');
         var videoGagneContainer = document.getElementById('videoGagneContainer');
@@ -88,20 +62,11 @@
 
         var result = Math.random() < 0.5 ? "Gagné" : "Perdu"; // 50% de chances
 
-        resultText.innerText = result;
-
-        // Affiche la div avec une animation
-        resultDiv.style.opacity = 1;
-
         if (result === "Gagné") {
-            resultDiv.classList.remove('perdu');
-            resultDiv.classList.add('gagne');
-            videoGagneContainer.style.display = "block"; // Afficher le conteneur de la vidéo de victoire
+            videoGagneContainer.style.display = "block"; // Afficher la vidéo de victoire
             videoPerduContainer.style.display = "none";  // Masquer la vidéo de défaite
             gagneVideo.play(); // Lire la vidéo de victoire automatiquement
         } else {
-            resultDiv.classList.remove('gagne');
-            resultDiv.classList.add('perdu');
             videoPerduContainer.style.display = "block"; // Afficher la vidéo de défaite
             videoGagneContainer.style.display = "none"; // Masquer la vidéo de victoire
             perduVideo.play(); // Lire la vidéo de défaite automatiquement
