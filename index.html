@@ -45,28 +45,12 @@
             padding-top: 56.25%; /* Ratio d'aspect 16:9 */
         }
 
-        #gagneVideo {
+        #gagneVideo, #perduVideo {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-        }
-
-        #retryButton {
-            display: none; /* Masquer le bouton au départ */
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 20px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        #retryButton:hover {
-            background-color: #0056b3; /* Couleur au survol */
         }
     </style>
 </head>
@@ -78,23 +62,29 @@
 </div>
 
 <!-- Conteneur pour la vidéo de victoire -->
-<div class="video-container" id="videoContainer">
+<div class="video-container" id="videoGagneContainer">
     <video id="gagneVideo" controls autoplay muted>
-        <source src="gagner.mp4" type="video/mp4"> <!-- Chemin vers ta vidéo -->
+        <source src="gagner.mp4" type="video/mp4"> <!-- Chemin vers la vidéo de victoire -->
         Votre navigateur ne supporte pas la lecture de vidéos.
     </video>
 </div>
 
-<!-- Bouton pour retenter sa chance -->
-<button id="retryButton" onclick="retenterChance()">Retentez votre chance</button>
+<!-- Conteneur pour la vidéo d'échec -->
+<div class="video-container" id="videoPerduContainer">
+    <video id="perduVideo" controls autoplay muted>
+        <source src="perdu.mp4" type="video/mp4"> <!-- Chemin vers la vidéo de défaite -->
+        Votre navigateur ne supporte pas la lecture de vidéos.
+    </video>
+</div>
 
 <script>
     function lancerAnimation() {
         var resultDiv = document.getElementById('result');
         var resultText = document.getElementById('resultText');
         var gagneVideo = document.getElementById('gagneVideo');
-        var retryButton = document.getElementById('retryButton');
-        var videoContainer = document.getElementById('videoContainer');
+        var perduVideo = document.getElementById('perduVideo');
+        var videoGagneContainer = document.getElementById('videoGagneContainer');
+        var videoPerduContainer = document.getElementById('videoPerduContainer');
 
         var result = Math.random() < 0.5 ? "Gagné" : "Perdu"; // 50% de chances
 
@@ -106,34 +96,16 @@
         if (result === "Gagné") {
             resultDiv.classList.remove('perdu');
             resultDiv.classList.add('gagne');
-            videoContainer.style.display = "block"; // Afficher le conteneur de la vidéo
-            gagneVideo.play(); // Lire la vidéo automatiquement
-            retryButton.style.display = "none"; // Masquer le bouton si "Gagné"
+            videoGagneContainer.style.display = "block"; // Afficher le conteneur de la vidéo de victoire
+            videoPerduContainer.style.display = "none";  // Masquer la vidéo de défaite
+            gagneVideo.play(); // Lire la vidéo de victoire automatiquement
         } else {
             resultDiv.classList.remove('gagne');
             resultDiv.classList.add('perdu');
-            videoContainer.style.display = "none"; // Cacher le conteneur de la vidéo si "Perdu"
-
-            // Afficher le bouton de retry uniquement jusqu'au 25/12/2024
-            var today = new Date();
-            var endDate = new Date('2024-12-25');
-
-            if (today <= endDate) {
-                retryButton.style.display = "block"; // Afficher le bouton
-            } else {
-                retryButton.style.display = "none"; // Ne pas afficher le bouton après cette date
-            }
+            videoPerduContainer.style.display = "block"; // Afficher la vidéo de défaite
+            videoGagneContainer.style.display = "none"; // Masquer la vidéo de victoire
+            perduVideo.play(); // Lire la vidéo de défaite automatiquement
         }
-    }
-
-    function retenterChance() {
-        // Réinitialiser le résultat et relancer l'animation
-        var resultDiv = document.getElementById('result');
-        resultDiv.style.opacity = 0; // Cacher le résultat
-        document.getElementById('resultText').innerText = "Résultat"; // Réinitialiser le texte
-        document.getElementById('videoContainer').style.display = "none"; // Cacher le conteneur de la vidéo
-        // La vidéo ne sera pas mise en pause, donc elle continuera à jouer en arrière-plan.
-        lancerAnimation(); // Relancer l'animation
     }
 
     // Appeler la fonction quand la page charge
