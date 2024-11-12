@@ -3,81 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tirage au sort avec vidéo</title>
+    <title>Choix du Genre et Tirage au Sort</title>
     <style>
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f4f4f9;
-            font-family: Arial, sans-serif;
             margin: 0;
+            background-color: #295163;
+            font-family: 'Georgia', serif;
+            color: #f3e9e2;
+            text-align: center;
+            overflow: hidden;
         }
-
-        .video-container {
-            width: 100vw; /* Prend 100% de la largeur de la fenêtre */
-            height: 100vh; /* Prend 100% de la hauteur de la fenêtre */
-            display: none; /* Masquer le conteneur au départ */
-            position: relative;
+        .genre-choice {
+            text-align: center;
         }
-
-        #gagneVideo, #perduVideo {
-            width: 100%; /* Assurer que la vidéo s'ajuste à 100% de la largeur */
-            height: 100%; /* Assurer que la vidéo s'ajuste à 100% de la hauteur */
-            object-fit: cover; /* Recouvrir l'écran tout en conservant le ratio d'aspect */
+        .genre-choice h1 {
+            font-size: 5em;
+            margin: 0;
+            color: #f3e9e2;
         }
-
-        /* Styles supplémentaires pour petits écrans */
-        @media (max-width: 768px) {
-            .video-container {
-                width: 100vw; /* Toujours 100% de la largeur de l'écran */
-                height: 100vh; /* Toujours 100% de la hauteur de l'écran */
-            }
+        .genre-choice h1.femme {
+            font-weight: bold;
+        }
+        .genre-choice h1.homme {
+            font-weight: normal;
+            color: rgba(243, 233, 226, 0.5);
+        }
+        .side-text {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2em;
+            color: #f7a7b5;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+        }
+        .side-text.left {
+            left: 20px;
+        }
+        .side-text.right {
+            right: 20px;
+        }
+        .click-area {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50%;
+            height: 100%;
+            cursor: pointer;
+        }
+        .click-area.left {
+            left: 0;
+        }
+        .click-area.right {
+            right: 0;
         }
     </style>
 </head>
 <body>
 
-<!-- Conteneur pour la vidéo de victoire -->
-<div class="video-container" id="videoGagneContainer">
-    <video id="gagneVideo" autoplay muted playsinline>
-        <source src="gagner.mp4" type="video/mp4">
-        Votre navigateur ne supporte pas la lecture de vidéos.
-    </video>
-</div>
+    <div class="side-text left">FAITES VOTRE CHOIX</div>
+    <div class="side-text right">FAITES VOTRE CHOIX</div>
 
-<!-- Conteneur pour la vidéo d'échec -->
-<div class="video-container" id="videoPerduContainer">
-    <video id="perduVideo" autoplay muted playsinline>
-        <source src="perdu.mp4" type="video/mp4">
-        Votre navigateur ne supporte pas la lecture de vidéos.
-    </video>
-</div>
+    <div class="genre-choice">
+        <h1 class="femme">FEMME</h1>
+        <h1 class="homme">HOMME</h1>
+    </div>
 
-<script>
-    function lancerAnimation() {
-        var gagneVideo = document.getElementById('gagneVideo');
-        var perduVideo = document.getElementById('perduVideo');
-        var videoGagneContainer = document.getElementById('videoGagneContainer');
-        var videoPerduContainer = document.getElementById('videoPerduContainer');
+    <div class="click-area left" onclick="choisirGenre()"></div>
+    <div class="click-area right" onclick="choisirGenre()"></div>
 
-        var result = Math.random() < 0.5 ? "Gagné" : "Perdu"; // 50% de chances
-
-        if (result === "Gagné") {
-            videoGagneContainer.style.display = "block"; // Afficher la vidéo de victoire
-            videoPerduContainer.style.display = "none";  // Masquer la vidéo de défaite
-            gagneVideo.play(); // Lire la vidéo de victoire automatiquement
-        } else {
-            videoPerduContainer.style.display = "block"; // Afficher la vidéo de défaite
-            videoGagneContainer.style.display = "none"; // Masquer la vidéo de victoire
-            perduVideo.play(); // Lire la vidéo de défaite automatiquement
+    <script>
+        function choisirGenre() {
+            lancerTirage();
         }
-    }
 
-    // Appeler la fonction quand la page charge
-    window.onload = lancerAnimation;
-</script>
+        function lancerTirage() {
+            // Tirage aléatoire avec 2% de chance de gagner
+            const isGagnant = Math.random() < 0.02; // 2% de chance
+
+            if (isGagnant) {
+                lancerVideo("gagner.mp4"); // Vidéo de gain pour les deux genres
+            } else {
+                lancerVideo("perdu.mp4"); // Vidéo de perte pour les deux genres
+            }
+        }
+
+        function lancerVideo(videoFile) {
+            // Crée un élément vidéo et le lit en plein écran
+            const video = document.createElement("video");
+            video.src = videoFile;
+            video.controls = false; // Cacher les contrôles de la vidéo
+            video.autoplay = true; // Lancer automatiquement
+            video.style.width = "100%";
+            video.style.height = "100vh";
+            video.style.objectFit = "cover"; // Adapter la vidéo à l'écran
+
+            // Nettoyer la page et ajouter la vidéo
+            document.body.innerHTML = ""; // Effacer le contenu précédent
+            document.body.appendChild(video);
+        }
+    </script>
 
 </body>
 </html>
