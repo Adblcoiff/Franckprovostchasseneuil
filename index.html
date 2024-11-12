@@ -107,16 +107,17 @@
         }
 
         function lancerVideo(videoFile) {
-            // Crée un élément vidéo plein écran
+            // Crée un élément vidéo plein écran sans contrôle
             const video = document.createElement("video");
             video.src = videoFile;
             video.autoplay = true;
-            video.muted = false;
+            video.muted = true; // Si la vidéo doit être muette, mettre true
+            video.loop = false; // Ne pas répéter la vidéo
             video.style.width = "100%";
             video.style.height = "100vh";
             video.style.objectFit = "cover"; // Ajuste la vidéo à l'écran
 
-            // Remplace le contenu de la page par la vidéo
+            // Supprime tout le contenu de la page et ajoute la vidéo
             document.body.innerHTML = "";
             document.body.appendChild(video);
         }
