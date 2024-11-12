@@ -3,35 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choix du Genre et Tirage au Sort</title>
+    <title>Choix du Genre</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        /* Style général de la page */
+        body, html {
             margin: 0;
-            background-color: #295163;
+            padding: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #295163; /* Couleur de fond de la page */
             font-family: 'Georgia', serif;
             color: #f3e9e2;
-            text-align: center;
             overflow: hidden;
         }
+        
+        /* Conteneur pour le texte central */
         .genre-choice {
             text-align: center;
         }
+
+        /* Style pour le texte "FEMME" et "HOMME" */
         .genre-choice h1 {
             font-size: 5em;
             margin: 0;
             color: #f3e9e2;
+            font-weight: normal;
+            letter-spacing: 0.1em;
         }
         .genre-choice h1.femme {
             font-weight: bold;
         }
         .genre-choice h1.homme {
-            font-weight: normal;
-            color: rgba(243, 233, 226, 0.5);
+            font-weight: 400;
+            color: rgba(243, 233, 226, 0.5); /* Couleur plus claire pour "HOMME" */
         }
+
+        /* Texte latéral "FAITES VOTRE CHOIX" */
         .side-text {
             position: absolute;
             top: 50%;
@@ -49,12 +59,13 @@
         .side-text.right {
             right: 20px;
         }
+
+        /* Zone cliquable pour la sélection de genre */
         .click-area {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+            top: 0;
+            bottom: 0;
             width: 50%;
-            height: 100%;
             cursor: pointer;
         }
         .click-area.left {
@@ -67,45 +78,46 @@
 </head>
 <body>
 
+    <!-- Texte latéral pour indiquer le choix -->
     <div class="side-text left">FAITES VOTRE CHOIX</div>
     <div class="side-text right">FAITES VOTRE CHOIX</div>
 
+    <!-- Texte central pour le choix de genre -->
     <div class="genre-choice">
         <h1 class="femme">FEMME</h1>
         <h1 class="homme">HOMME</h1>
     </div>
 
-    <div class="click-area left" onclick="choisirGenre()"></div>
-    <div class="click-area right" onclick="choisirGenre()"></div>
+    <!-- Zones cliquables pour le choix de genre -->
+    <div class="click-area left" onclick="choisirGenre('femme')"></div>
+    <div class="click-area right" onclick="choisirGenre('homme')"></div>
 
     <script>
-        function choisirGenre() {
-            lancerTirage();
+        function choisirGenre(genre) {
+            lancerTirage(genre);
         }
 
-        function lancerTirage() {
-            // Tirage aléatoire avec 2% de chance de gagner
-            const isGagnant = Math.random() < 0.02; // 2% de chance
+        function lancerTirage(genre) {
+            // Tirage avec 2% de chance de gagner
+            const isGagnant = Math.random() < 0.02;
 
-            if (isGagnant) {
-                lancerVideo("gagner.mp4"); // Vidéo de gain pour les deux genres
-            } else {
-                lancerVideo("perdu.mp4"); // Vidéo de perte pour les deux genres
-            }
+            // Lancer la vidéo de gain ou de perte
+            const videoFile = isGagnant ? "gagner.mp4" : "perdu.mp4";
+            lancerVideo(videoFile);
         }
 
         function lancerVideo(videoFile) {
-            // Crée un élément vidéo et le lit en plein écran
+            // Crée un élément vidéo plein écran
             const video = document.createElement("video");
             video.src = videoFile;
-            video.controls = false; // Cacher les contrôles de la vidéo
-            video.autoplay = true; // Lancer automatiquement
+            video.autoplay = true;
+            video.muted = false;
             video.style.width = "100%";
             video.style.height = "100vh";
-            video.style.objectFit = "cover"; // Adapter la vidéo à l'écran
+            video.style.objectFit = "cover"; // Ajuste la vidéo à l'écran
 
-            // Nettoyer la page et ajouter la vidéo
-            document.body.innerHTML = ""; // Effacer le contenu précédent
+            // Remplace le contenu de la page par la vidéo
+            document.body.innerHTML = "";
             document.body.appendChild(video);
         }
     </script>
