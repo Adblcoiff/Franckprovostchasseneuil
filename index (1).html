@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jeu Poitiers</title>
+    <title>Jeu Chasseneuil</title>
     <style>
         body, html {
             margin: 0;
@@ -107,7 +107,7 @@
                                 date: today
                             }).then(() => {
                                 alert(`Félicitations ! Vous êtes le gagnant pour ${genre} à ${lieu} aujourd'hui.`);
-                                lancerVideo(genre === "femme" ? "gagner_1.mp4" : "gagner_1.mp4");
+                                lancerVideo(genre === "femme" ? "gagner.mp4" : "gagner.mp4");
                                 chanceRef.set(3); // Réinitialiser la probabilité
                             }).catch(error => {
                                 console.error("Erreur d'écriture dans la base de données Firebase :", error);
